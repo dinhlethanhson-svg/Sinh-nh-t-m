@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Mỹ Ngọc ❤️</title>
-    <!-- Chèn font chữ dễ thương và hiện đại -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
@@ -23,180 +22,172 @@
             align-items: center;
             overflow: hidden;
             position: relative;
+            /* Toàn bộ màn hình đều có thể nhấn */
+            cursor: pointer; 
         }
 
-        /* Hiệu ứng cánh hoa anh đào rơi */
+        /* Hiệu ứng cánh hoa rơi */
         .petal {
             position: absolute;
             top: -20px;
             color: #ffb3c6;
-            font-size: 20px;
+            font-size: 18px;
             pointer-events: none;
             animation: fall linear infinite;
             z-index: 1;
         }
 
         @keyframes fall {
-            0% {
-                transform: translateY(0) translateX(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(105vh) translateX(100px) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(105vh) translateX(80px) rotate(360deg); opacity: 0; }
         }
 
-        /* Giao diện kính mờ Glassmorphism siêu hiện đại */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 35px 25px;
-            border-radius: 24px;
-            text-align: center;
-            width: 90%;
-            max-width: 480px;
-            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
-            z-index: 10;
-            transition: all 0.5s ease;
-        }
-
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.8rem;
-            color: #c9184a;
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-        }
-
-        /* Khu vực chiếc bánh sinh nhật */
-        .cake-container {
-            font-size: 75px;
-            margin: 15px 0;
-            position: relative;
-            cursor: pointer;
-            display: inline-block;
-            transition: transform 0.3s;
-        }
-        
-        .cake-container:hover {
-            transform: scale(1.1);
-        }
-
-        .flame {
+        /* Màn hình chờ ban đầu - Nhắc nhở chạm */
+        .welcome-screen {
             position: absolute;
-            top: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 30px;
-            animation: flicker 0.6s infinite alternate;
+            text-align: center;
+            z-index: 20;
             transition: opacity 0.5s ease;
+            width: 90%;
         }
 
-        @keyframes flicker {
-            0% { transform: translateX(-50%) scale(1) rotate(-2deg); opacity: 0.9; }
-            100% { transform: translateX(-50%) scale(1.08) rotate(2deg); opacity: 1; }
+        .welcome-screen h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #c9184a;
+            margin-bottom: 10px;
+        }
+
+        .pulse-box {
+            font-size: 60px;
+            animation: pulse 1.5s infinite;
         }
 
         .hint-text {
             font-size: 1rem;
             color: #bc4749;
             font-weight: bold;
-            margin-bottom: 25px;
-            animation: pulse 1.5s infinite;
+            margin-top: 10px;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
+            50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
 
-        /* Hiệu ứng phong bì thư 3D nâng cấp */
+        /* Giao diện kính mờ Glassmorphism TikTok */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 25px 20px;
+            border-radius: 20px;
+            text-align: center;
+            width: 92%;
+            max-width: 420px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.15);
+            z-index: 10;
+            display: none; /* Ẩn lúc đầu, chạm mới hiện */
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.3rem;
+            color: #c9184a;
+            margin-bottom: 15px;
+        }
+
+        /* Khung chứa phong bì 3D */
         .envelope-wrapper {
-            perspective: 1000px;
-            display: none; /* Ẩn đi, hiện sau khi thổi nến */
+            perspective: 800px;
+            display: flex;
             justify-content: center;
             margin: 20px auto;
+            transition: all 0.5s ease;
         }
 
         .envelope {
-            width: 280px;
-            height: 180px;
+            width: 240px;
+            height: 150px;
             background: #ff758f;
             position: relative;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            border-radius: 0 0 12px 12px;
-            transition: transform 0.5s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-radius: 0 0 10px 10px;
         }
 
-        /* Nắp phong bì */
         .flap {
             position: absolute;
             top: 0;
             left: 0;
-            border-left: 140px solid transparent;
-            border-right: 140px solid transparent;
-            border-top: 95px solid #ff4d6d;
+            border-left: 120px solid transparent;
+            border-right: 120px solid transparent;
+            border-top: 80px solid #ff4d6d;
             transform-origin: top;
-            transition: transform 0.4s ease 0.2s, z-index 0.2s ease 0.4s;
+            transition: transform 0.4s ease 0.3s, z-index 0.2s ease 0.5s;
             z-index: 3;
         }
 
-        /* Thân dưới của phong bì */
         .pocket {
             position: absolute;
             bottom: 0;
             left: 0;
-            border-left: 140px solid #ff85a2;
-            border-right: 140px solid #ff85a2;
-            border-bottom: 90px solid #ff758f;
-            border-top: 90px solid transparent;
-            border-radius: 0 0 12px 12px;
+            border-left: 120px solid #ff85a2;
+            border-right: 120px solid #ff85a2;
+            border-bottom: 75px solid #ff758f;
+            border-top: 75px solid transparent;
+            border-radius: 0 0 10px 10px;
             z-index: 4;
         }
 
-        /* Hiệu ứng mở phong bì */
+        /* Trạng thái mở thư */
         .envelope.open .flap {
             transform: rotateX(180deg);
             z-index: 1;
         }
 
-        /* Bức thư lời chúc ẩn bên trong */
+        /* Thiệp giấy chữ gõ bên trong */
         .letter-card {
             background: #ffffff;
             border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            padding: 18px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             border: 2px dashed #ffb3c6;
             display: none;
             text-align: left;
-            margin-top: 20px;
-            max-height: 350px;
-            overflow-y: auto;
-            animation: fadeInUp 0.7s forwards;
+            margin-top: 15px;
+            max-height: 280px; /* Thích hợp màn hình điện thoại */
+            overflow-y: auto; /* Vuốt cuộn nếu lời chúc dài */
+            animation: fadeInUp 0.6s forwards;
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .letter-content {
-            font-size: 1.05rem;
-            line-height: 1.7;
+            font-size: 0.95rem;
+            line-height: 1.6;
             color: #4a4a4a;
             white-space: pre-wrap;
         }
 
         .signature {
-            margin-top: 20px;
+            margin-top: 15px;
             text-align: right;
             font-family: 'Dancing Script', cursive;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: #c9184a;
             font-weight: bold;
             opacity: 0;
@@ -204,33 +195,28 @@
         }
     </style>
 </head>
-<body>
+<body onclick="handleScreenClick()">
 
-    <!-- THÀNH PHẦN NHẠC NỀN (ĐÃ THAY LINK CHUẨN) -->
     <audio id="bgMusic" loop preload="auto">
-        <source src="https://files.catbox.moe/p8b7e2.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="glass-card">
-        <h1 id="titleHead">Happy Birthday Mỹ Ngọc! 🎂</h1>
-        
-        <!-- Khu vực click tắt nến -->
-        <div id="cakeZone">
-            <div class="cake-container" onclick="extinguishCandle()">
-                <span class="flame" id="flame">🔥</span>🎂
-            </div>
-            <p class="hint-text" id="hintAction">Chạm nhẹ vào ngọn lửa để thổi nến nhé bé oiii! 🌬️</p>
-        </div>
+    <div class="welcome-screen" id="welcomeScreen">
+        <h2>Mỹ Ngọc oii! ❤️</h2>
+        <div class="pulse-box">🎁</div>
+        <p class="hint-text">Chạm bất kì chỗ nào trên màn hình để mở nha bé oiii... ✨</p>
+    </div>
 
-        <!-- Phong bì thư ẩn -->
+    <div class="glass-card" id="mainCard">
+        <h1 id="titleHead">Chúc Mừng Sinh Nhật! 🎂</h1>
+        
         <div class="envelope-wrapper" id="envelopeWrapper">
-            <div class="envelope" id="envelope" onclick="openEnvelope()">
+            <div class="envelope" id="envelope">
                 <div class="flap"></div>
                 <div class="pocket"></div>
             </div>
         </div>
 
-        <!-- Nội dung thiệp chúc mừng -->
         <div id="letterCard" class="letter-card">
             <div id="typewriter" class="letter-content"></div>
             <div id="sig" class="signature">From Thanh Sơn with love :’)</div>
@@ -238,25 +224,24 @@
     </div>
 
     <script>
-        // Tạo hiệu ứng cánh hoa rơi ngẫu nhiên
+        // Hiệu ứng hoa đào rơi rải rác
         function createPetal() {
             const petal = document.createElement('div');
             petal.classList.add('petal');
             petal.innerHTML = ['🌸', '💮', '✨', '💕'][Math.floor(Math.random() * 4)];
             petal.style.left = Math.random() * 100 + "vw";
-            petal.style.animationDuration = Math.random() * 3 + 3 + "s";
-            petal.style.fontSize = Math.random() * 15 + 15 + "px";
+            petal.style.animationDuration = Math.random() * 2.5 + 2.5 + "s";
             document.body.appendChild(petal);
-            
-            setTimeout(() => { petal.remove(); }, 6000);
+            setTimeout(() => { petal.remove(); }, 5000);
         }
-        setInterval(createPetal, 300);
+        setInterval(createPetal, 350);
 
         // Lời chúc của bạn
         const wishText = `Lại là bạn trai của em đây!!! Mỹ Ngọc ơi, dạo này em ôn thi nhiều và có đôi lúc stress với kì thi nữa nên là anh mong em sẽ thật sự biết được năng lực của mình và tiếp tục cố gắng nhee. Anh tin em nếu ôn tập và học chăm chỉ cũng như quan sát đối thủ xung quanh thì em sẽ đạt được những gì em mong muốn, với nhớ là phải giữ sức khỏe nè bé, ăn uống ngủ nghỉ đầy đủ, bị đau răng thì hạn chế đồ ngọt, uống nước đá. Với lại nếu có thời gian thì em hãy tập thể dục để có dopamine và tốt cho sức khỏe nè. Vậy là em đã 17 tuổi rồi, nhanh thiệt :))), anh chúc em sẽ vẫn xinh đẹp và cute như vậy, tuổi mới đạt được nhiều mục tiêu đề ra và sẽ vào được trường đại học mình mong ước. Anh yêu Mỹ Ngọc của anh <3\n\n`;
 
         let index = 0;
-        const speed = 45; 
+        const speed = 50; 
+        let hasActivated = false; // Biến kiểm tra xem đã click mở chưa
 
         function typeWriter() {
             if (index < wishText.length) {
@@ -264,51 +249,49 @@
                 index++;
                 setTimeout(typeWriter, speed);
             } else {
-                const sig = document.getElementById("sig");
-                sig.style.opacity = "1";
+                document.getElementById("sig").style.opacity = "1";
             }
         }
 
-        // Bước 1: Click tắt nến + Phát nhạc + Hiện phong bì (Đã bọc try-catch chống đơ)
-        function extinguishCandle() {
-            // Tắt lửa ngay lập tức
-            document.getElementById("flame").style.opacity = "0";
-            document.getElementById("hintAction").innerText = "Nến đã tắt rồi! Mở phong bì thư bên dưới nhé 🎁";
+        // HÀM XỬ LÝ KHI CHẠM BẤT KỲ ĐÂU TRÊN MÀN HÌNH ĐIỆN THOẠI
+        function handleScreenClick() {
+            if (hasActivated) return; // Nếu đã kích hoạt rồi thì bỏ qua không chạy lại nữa
+            hasActivated = true;
+
+            // 1. Kích hoạt phát nhạc nền ngay lập tức
+            const music = document.getElementById("bgMusic");
+            music.play().catch(err => {
+                console.log("Trình duyệt chặn hoặc lỗi file nhạc");
+            });
+
+            // 2. Ẩn màn hình chào đón
+            document.getElementById("welcomeScreen").style.opacity = "0";
             
-            // Thử phát nhạc, nếu lỗi link nhạc thì bỏ qua vẫn chạy tiếp hiệu ứng dưới
-            try {
-                const music = document.getElementById("bgMusic");
-                music.play().catch(e => console.log("Chờ click tiếp theo để chạy nhạc"));
-            } catch (err) {
-                console.log("Không tải được nhạc nhưng vẫn chạy code tiếp");
-            }
-
-            // Hiển thị phong bì thư 3D
             setTimeout(() => {
-                document.getElementById("cakeZone").style.display = "none";
-                document.getElementById("envelopeWrapper").style.display = "flex";
-            }, 1200);
-        }
-
-        // Bước 2: Click mở phong bì + Chạy lời chúc gõ chữ
-        function openEnvelope() {
-            const env = document.getElementById("envelope");
-            env.classList.add("open");
-
-            // Cố gắng phát lại nhạc một lần nữa phòng hờ trình duyệt cần tương tác sâu hơn
-            try {
-                document.getElementById("bgMusic").play().catch(e => {});
-            } catch(e){}
-
-            setTimeout(() => {
-                document.getElementById("envelopeWrapper").style.display = "none";
-                document.getElementById("titleHead").innerText = "Lời chúc từ Sơn ❤️";
+                document.getElementById("welcomeScreen").style.display = "none";
                 
-                const card = document.getElementById("letterCard");
-                card.style.display = "block";
-                
-                typeWriter();
-            }, 800);
+                // 3. Hiện tấm thiệp kính mờ Glassmorphism lên
+                const mainCard = document.getElementById("mainCard");
+                mainCard.style.display = "block";
+                setTimeout(() => { mainCard.classList.add("show"); }, 50);
+
+                // 4. Tự động chạy hiệu ứng lật mở phong bì 3D sau đó 1 giây
+                setTimeout(() => {
+                    document.getElementById("envelope").classList.add("open");
+
+                    // 5. Phong bì mở xong sẽ ẩn đi để nhường chỗ cho chữ gõ chạy ra
+                    setTimeout(() => {
+                        document.getElementById("envelopeWrapper").style.display = "none";
+                        document.getElementById("titleHead").innerText = "Lời chúc từ Sơn ❤️";
+                        document.getElementById("letterCard").style.display = "block";
+                        
+                        // Chạy hiệu ứng chữ đánh máy lời chúc
+                        typeWriter();
+                    }, 1000);
+
+                }, 1000);
+
+            }, 500);
         }
     </script>
 </body>
