@@ -197,9 +197,9 @@
 </head>
 <body onclick="handleScreenClick()">
 
-    <!-- THÀNH PHẦN PHÁT NHẠC (BẢN NHẠC PIANO LÃNG MẠN MỚI) -->
+    <!-- THÀNH PHẦN PHÁT NHẠC (ĐÃ ĐỔI SANG BẢN PIANO DU DƯƠNG, ÊM TAI) -->
     <audio id="bgMusic" loop preload="auto">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3" type="audio/mpeg">
+        <source src="https://files.catbox.moe/p8b7e2.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Màn hình chờ mở đầu -->
@@ -261,7 +261,7 @@
             if (hasActivated) return; 
             hasActivated = true;
 
-            // 1. Kích hoạt phát nhạc nền lãng mạn
+            // 1. Kích hoạt phát nhạc nền lãng mạn mới
             const music = document.getElementById("bgMusic");
             music.play().catch(err => {
                 console.log("Trình duyệt chặn hoặc lỗi file nhạc");
