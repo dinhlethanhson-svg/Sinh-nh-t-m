@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Mỹ Ngọc ❤️</title>
+    <!-- Chèn font chữ dễ thương -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
@@ -22,7 +23,6 @@
             align-items: center;
             overflow: hidden;
             position: relative;
-            /* Toàn bộ màn hình đều có thể nhấn */
             cursor: pointer; 
         }
 
@@ -89,7 +89,7 @@
             max-width: 420px;
             box-shadow: 0 15px 35px rgba(255, 77, 109, 0.15);
             z-index: 10;
-            display: none; /* Ẩn lúc đầu, chạm mới hiện */
+            display: none; 
             opacity: 0;
             transform: scale(0.8);
             transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -166,8 +166,8 @@
             display: none;
             text-align: left;
             margin-top: 15px;
-            max-height: 280px; /* Thích hợp màn hình điện thoại */
-            overflow-y: auto; /* Vuốt cuộn nếu lời chúc dài */
+            max-height: 280px; 
+            overflow-y: auto; 
             animation: fadeInUp 0.6s forwards;
         }
 
@@ -197,16 +197,19 @@
 </head>
 <body onclick="handleScreenClick()">
 
+    <!-- THÀNH PHẦN PHÁT NHẠC (BẢN NHẠC PIANO LÃNG MẠN MỚI) -->
     <audio id="bgMusic" loop preload="auto">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- Màn hình chờ mở đầu -->
     <div class="welcome-screen" id="welcomeScreen">
         <h2>Mỹ Ngọc oii! ❤️</h2>
         <div class="pulse-box">🎁</div>
         <p class="hint-text">Chạm bất kì chỗ nào trên màn hình để mở nha bé oiii... ✨</p>
     </div>
 
+    <!-- Giao diện chứa phong bì thư chính -->
     <div class="glass-card" id="mainCard">
         <h1 id="titleHead">Chúc Mừng Sinh Nhật! 🎂</h1>
         
@@ -241,7 +244,7 @@
 
         let index = 0;
         const speed = 50; 
-        let hasActivated = false; // Biến kiểm tra xem đã click mở chưa
+        let hasActivated = false; 
 
         function typeWriter() {
             if (index < wishText.length) {
@@ -253,12 +256,12 @@
             }
         }
 
-        // HÀM XỬ LÝ KHI CHẠM BẤT KỲ ĐÂU TRÊN MÀN HÌNH ĐIỆN THOẠI
+        // HÀM XỬ LÝ KHI CHẠM BẤT KỲ ĐÂU TRÊN MÀN HÌNH
         function handleScreenClick() {
-            if (hasActivated) return; // Nếu đã kích hoạt rồi thì bỏ qua không chạy lại nữa
+            if (hasActivated) return; 
             hasActivated = true;
 
-            // 1. Kích hoạt phát nhạc nền ngay lập tức
+            // 1. Kích hoạt phát nhạc nền lãng mạn
             const music = document.getElementById("bgMusic");
             music.play().catch(err => {
                 console.log("Trình duyệt chặn hoặc lỗi file nhạc");
@@ -270,22 +273,21 @@
             setTimeout(() => {
                 document.getElementById("welcomeScreen").style.display = "none";
                 
-                // 3. Hiện tấm thiệp kính mờ Glassmorphism lên
+                // 3. Hiện tấm thiệp kính mờ
                 const mainCard = document.getElementById("mainCard");
                 mainCard.style.display = "block";
                 setTimeout(() => { mainCard.classList.add("show"); }, 50);
 
-                // 4. Tự động chạy hiệu ứng lật mở phong bì 3D sau đó 1 giây
+                // 4. Tự động chạy hiệu ứng lật mở phong bì 3D
                 setTimeout(() => {
                     document.getElementById("envelope").classList.add("open");
 
-                    // 5. Phong bì mở xong sẽ ẩn đi để nhường chỗ cho chữ gõ chạy ra
+                    // 5. Hiện thiệp giấy và chạy chữ gõ tự động
                     setTimeout(() => {
                         document.getElementById("envelopeWrapper").style.display = "none";
                         document.getElementById("titleHead").innerText = "Lời chúc từ Sơn ❤️";
                         document.getElementById("letterCard").style.display = "block";
                         
-                        // Chạy hiệu ứng chữ đánh máy lời chúc
                         typeWriter();
                     }, 1000);
 
