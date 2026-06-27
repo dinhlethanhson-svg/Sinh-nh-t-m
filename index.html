@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Mỹ Ngọc ❤️</title>
+    <!-- Chèn font chữ dễ thương và hiện đại -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
@@ -205,13 +206,15 @@
 </head>
 <body>
 
+    <!-- THÀNH PHẦN NHẠC NỀN (ĐÃ THAY LINK CHUẨN) -->
     <audio id="bgMusic" loop preload="auto">
-        <source src="https://api.mp3.zing.vn/api/streaming/audio/ZWAF6O8O/320" type="audio/mpeg">
+        <source src="https://files.catbox.moe/p8b7e2.mp3" type="audio/mpeg">
     </audio>
 
     <div class="glass-card">
         <h1 id="titleHead">Happy Birthday Mỹ Ngọc! 🎂</h1>
         
+        <!-- Khu vực click tắt nến -->
         <div id="cakeZone">
             <div class="cake-container" onclick="extinguishCandle()">
                 <span class="flame" id="flame">🔥</span>🎂
@@ -219,6 +222,7 @@
             <p class="hint-text" id="hintAction">Chạm nhẹ vào ngọn lửa để thổi nến nhé bé oiii! 🌬️</p>
         </div>
 
+        <!-- Phong bì thư ẩn -->
         <div class="envelope-wrapper" id="envelopeWrapper">
             <div class="envelope" id="envelope" onclick="openEnvelope()">
                 <div class="flap"></div>
@@ -226,6 +230,7 @@
             </div>
         </div>
 
+        <!-- Nội dung thiệp chúc mừng -->
         <div id="letterCard" class="letter-card">
             <div id="typewriter" class="letter-content"></div>
             <div id="sig" class="signature">From Thanh Sơn with love :’)</div>
@@ -237,4 +242,74 @@
         function createPetal() {
             const petal = document.createElement('div');
             petal.classList.add('petal');
-            // Ngẫu nhiên các kiểu cánh hoa / hoa đào
+            petal.innerHTML = ['🌸', '💮', '✨', '💕'][Math.floor(Math.random() * 4)];
+            petal.style.left = Math.random() * 100 + "vw";
+            petal.style.animationDuration = Math.random() * 3 + 3 + "s";
+            petal.style.fontSize = Math.random() * 15 + 15 + "px";
+            document.body.appendChild(petal);
+            
+            setTimeout(() => { petal.remove(); }, 6000);
+        }
+        setInterval(createPetal, 300);
+
+        // Lời chúc của bạn
+        const wishText = `Lại là bạn trai của em đây!!! Mỹ Ngọc ơi, dạo này em ôn thi nhiều và có đôi lúc stress với kì thi nữa nên là anh mong em sẽ thật sự biết được năng lực của mình và tiếp tục cố gắng nhee. Anh tin em nếu ôn tập và học chăm chỉ cũng như quan sát đối thủ xung quanh thì em sẽ đạt được những gì em mong muốn, với nhớ là phải giữ sức khỏe nè bé, ăn uống ngủ nghỉ đầy đủ, bị đau răng thì hạn chế đồ ngọt, uống nước đá. Với lại nếu có thời gian thì em hãy tập thể dục để có dopamine và tốt cho sức khỏe nè. Vậy là em đã 17 tuổi rồi, nhanh thiệt :))), anh chúc em sẽ vẫn xinh đẹp và cute như vậy, tuổi mới đạt được nhiều mục tiêu đề ra và sẽ vào được trường đại học mình mong ước. Anh yêu Mỹ Ngọc của anh <3\n\n`;
+
+        let index = 0;
+        const speed = 45; 
+
+        function typeWriter() {
+            if (index < wishText.length) {
+                document.getElementById("typewriter").innerHTML += wishText.charAt(index);
+                index++;
+                setTimeout(typeWriter, speed);
+            } else {
+                const sig = document.getElementById("sig");
+                sig.style.opacity = "1";
+            }
+        }
+
+        // Bước 1: Click tắt nến + Phát nhạc + Hiện phong bì (Đã bọc try-catch chống đơ)
+        function extinguishCandle() {
+            // Tắt lửa ngay lập tức
+            document.getElementById("flame").style.opacity = "0";
+            document.getElementById("hintAction").innerText = "Nến đã tắt rồi! Mở phong bì thư bên dưới nhé 🎁";
+            
+            // Thử phát nhạc, nếu lỗi link nhạc thì bỏ qua vẫn chạy tiếp hiệu ứng dưới
+            try {
+                const music = document.getElementById("bgMusic");
+                music.play().catch(e => console.log("Chờ click tiếp theo để chạy nhạc"));
+            } catch (err) {
+                console.log("Không tải được nhạc nhưng vẫn chạy code tiếp");
+            }
+
+            // Hiển thị phong bì thư 3D
+            setTimeout(() => {
+                document.getElementById("cakeZone").style.display = "none";
+                document.getElementById("envelopeWrapper").style.display = "flex";
+            }, 1200);
+        }
+
+        // Bước 2: Click mở phong bì + Chạy lời chúc gõ chữ
+        function openEnvelope() {
+            const env = document.getElementById("envelope");
+            env.classList.add("open");
+
+            // Cố gắng phát lại nhạc một lần nữa phòng hờ trình duyệt cần tương tác sâu hơn
+            try {
+                document.getElementById("bgMusic").play().catch(e => {});
+            } catch(e){}
+
+            setTimeout(() => {
+                document.getElementById("envelopeWrapper").style.display = "none";
+                document.getElementById("titleHead").innerText = "Lời chúc từ Sơn ❤️";
+                
+                const card = document.getElementById("letterCard");
+                card.style.display = "block";
+                
+                typeWriter();
+            }, 800);
+        }
+    </script>
+</body>
+</html>
