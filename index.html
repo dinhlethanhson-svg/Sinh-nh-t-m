@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Mỹ Ngọc ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    
     <style>
         * {
             box-sizing: border-box;
@@ -13,181 +14,155 @@
         }
 
         body {
+            margin: 0;
             background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 50%, #ffb3c6 100%);
             font-family: 'Quicksand', sans-serif;
-            min-height: 100vh;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            min-height: 100vh;
             position: relative;
-            perspective: 1000px; /* Tạo không gian 3D */
         }
 
-        /* 1. Hiệu ứng cánh hoa anh đào rơi và bong bóng bay */
+        /* Hiệu ứng cánh hoa rơi (TikTok style) */
         .petal {
             position: absolute;
             top: -20px;
-            color: #ffb3c6;
-            font-size: 20px;
+            color: #ff85a2;
+            font-size: 24px;
+            user-select: none;
             pointer-events: none;
             animation: fall linear infinite;
-            z-index: 1;
-        }
-        .bubble {
-            position: absolute;
-            bottom: -20px;
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: floatUp ease-in infinite;
-            z-index: 1;
         }
         @keyframes fall {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(105vh) translateX(100px) rotate(360deg); opacity: 0; }
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(0.5); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-105vh) translateX(-50px) scale(1.2); opacity: 0; }
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
         }
 
-        /* 2. Giao diện kính mờ Glassmorphism 3D phong cách TikTok */
+        /* Hiệu ứng bong bóng bay lên */
+        .bubble {
+            position: absolute;
+            bottom: -50px;
+            background: rgba(255, 182, 193, 0.4);
+            border-radius: 50%;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: rise linear infinite;
+            pointer-events: none;
+        }
+        @keyframes rise {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-105vh) scale(1.2); opacity: 0; }
+        }
+
+        /* Giao diện kính mờ 3D (Glassmorphism) */
         .glass-card {
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.45);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 30px;
-            padding: 40px 30px;
+            padding: 35px 25px;
+            border-radius: 24px;
+            text-align: center;
             width: 90%;
             max-width: 480px;
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(245, 101, 125, 0.25),
-                        inset 0 5px 15px rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             z-index: 10;
-            transform: rotateX(5deg) rotateY(-5deg);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .glass-card:hover {
-            transform: rotateX(0deg) rotateY(0deg) scale(1.02);
-            box-shadow: 0 25px 60px rgba(245, 101, 125, 0.35);
+            transition: all 0.5s ease;
         }
 
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3rem;
-            color: #c9184a;
+        /* Khu vực Bánh & Nến */
+        .cake-container {
+            font-size: 85px;
             margin-bottom: 15px;
-            animation: pulse 2s infinite;
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .cake-container:hover {
+            transform: scale(1.05);
+        }
+        .flame {
+            position: absolute;
+            top: -25px;
+            left: 22px;
+            font-size: 40px;
+            animation: flicker 0.6s infinite alternate;
+            transition: opacity 0.5s ease;
+        }
+        @keyframes flicker {
+            from { transform: scale(1) rotate(-2deg); opacity: 0.9; }
+            to { transform: scale(1.1) rotate(2deg); opacity: 1; }
         }
 
-        .guide-text {
+        .hint-text {
             font-size: 1.1rem;
             color: #c9184a;
             font-weight: bold;
             margin-bottom: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
         }
 
-        /* 3. Bánh sinh nhật và ngọn nến có thể thổi tắt */
-        .cake-area {
-            font-size: 70px;
-            margin: 20px 0;
-            position: relative;
-            display: inline-block;
-        }
-        .candle {
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 30px;
-        }
-        .flame {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 20px;
-            animation: flicker 0.3s infinite alternate;
-        }
-        @keyframes flicker {
-            0% { transform: translateX(-50%) scale(1) rotate(-2deg); opacity: 0.9; }
-            100% { transform: translateX(-50%) scale(1.1) rotate(2deg); opacity: 1; }
-        }
-
-        /* 4. Hiệu ứng Phong bì thư 3D */
+        /* Phong bì thư */
         .envelope-wrapper {
-            margin: 30px auto;
-            width: 200px;
-            height: 140px;
-            perspective: 800px;
-            display: none; /* Ẩn ban đầu, hiện sau khi thổi nến */
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            margin: 20px 0;
         }
         .envelope {
-            width: 100%;
-            height: 100%;
+            width: 180px;
+            height: 120px;
             background: #ff758f;
+            margin: 0 auto;
             position: relative;
+            cursor: pointer;
             border-radius: 0 0 10px 10px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
+            transition: transform 0.5s;
         }
         .envelope:hover {
             transform: scale(1.05);
         }
-        /* Nắp phong bì */
         .flap {
             position: absolute;
             top: 0;
             left: 0;
-            border-left: 100px solid transparent;
-            border-right: 100px solid transparent;
-            border-top: 75px solid #ff4d6d;
+            border-left: 90px solid transparent;
+            border-right: 90px solid transparent;
+            border-top: 65px solid #ff4d6d;
             transform-origin: top;
-            transition: transform 0.5s ease;
+            transition: transform 0.4s ease;
             z-index: 3;
         }
-        /* Mặt trước phong bì */
-        .pocket {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 100px solid #ff85a2;
-            border-right: 100px solid #ff85a2;
-            border-bottom: 70px solid #ff758f;
-            border-top: 70px solid transparent;
-            border-radius: 0 0 10px 10px;
-            z-index: 2;
-        }
-        /* Khi mở phong bì */
         .envelope.open .flap {
             transform: rotateX(180deg);
-            z-index: 1;
         }
 
-        /* 5. Khung hiển thị lời chúc */
+        /* Bức thư lời chúc */
         .letter-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 2px dashed #ffb3c6;
             display: none;
-            text-align: left;
-            max-height: 300px;
+            max-height: 350px;
             overflow-y: auto;
-            margin-top: 20px;
+            text-align: left;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            border: 2px dashed #ffb3c6;
+            margin-top: 15px;
         }
         .letter-content {
             font-size: 1.05rem;
@@ -196,12 +171,14 @@
             white-space: pre-wrap;
         }
         .signature {
-            margin-top: 25px;
+            margin-top: 20px;
             text-align: right;
             font-family: 'Dancing Script', cursive;
             font-size: 1.8rem;
             color: #c9184a;
             font-weight: bold;
+            opacity: 0;
+            transition: opacity 1s ease;
         }
     </style>
 </head>
@@ -212,47 +189,40 @@
     </audio>
 
     <div class="glass-card">
-        <h1>Happy Birthday Mỹ Ngọc! 🌸</h1>
-        
-        <p id="guideText" class="guide-text">Hãy bật Micro và Thổi mạnh vào màn hình để tắt nến nhé! 🌬️</p>
-
-        <div class="cake-area" id="cakeArea">
-            <span class="candle">🕯️</span>
-            <span class="flame" id="flame">🔥</span>
-            🍰
+        <div id="cakeSection">
+            <div class="cake-container" onclick="extinguishCandle()">
+                <span class="flame" id="flame">🔥</span>🍰
+            </div>
+            <p id="hintText" class="hint-text">Chạm nhẹ vào ngọn nến để thổi tắt nè! 🌬️</p>
         </div>
-
-        <div class="envelope-wrapper" id="envelopeWrapper">
+        
+        <div id="envelopeWrapper" class="envelope-wrapper">
+            <p class="hint-text" style="animation: none; margin-bottom: 10px;">Nhạc đã lên! Click mở thư nhé em 💌</p>
             <div class="envelope" id="envelope" onclick="openEnvelope()">
                 <div class="flap"></div>
-                <div class="pocket"></div>
             </div>
-            <p style="color: #c9184a; font-weight: bold; margin-top: 10px; font-size: 0.95rem;">Bấm vào thư để mở quà của Sơn oii! ✉️</p>
         </div>
 
         <div id="letterCard" class="letter-card">
             <div id="typewriter" class="letter-content"></div>
-            <div id="sig" class="signature" style="display: none;">From Thanh Sơn with love :’)</div>
+            <div id="sig" class="signature">From Thanh Sơn with love :’)</div>
         </div>
     </div>
 
     <script>
-        /* TỰ ĐỘNG TẠO HIỆU ỨNG HOA RƠI & BONG BÓNG */
-        function createDecors() {
-            // Tạo cánh hoa
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            petal.innerHTML = ['🌸', '💮', '💖'][Math.floor(Math.random() * 3)];
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.animationDuration = Math.random() * 3 + 3 + 's';
-            petal.style.fontSize = Math.random() * 15 + 15 + 'px';
-            document.body.appendChild(petal);
-            setTimeout(() => petal.remove(), 6000);
+        // Hiệu ứng cánh hoa rơi ngẫu nhiên
+        function createPetal() {
+            const p = document.createElement('div');
+            p.className = 'petal';
+            p.innerHTML = ['🌸', '💮', '💖'][Math.floor(Math.random() * 3)];
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 5000);
+        }
+        setInterval(createPetal, 400);
 
-            // Tạo bong bóng
-            const bubble = document.createElement('div');
-            bubble.className = 'bubble';
-            const size = Math.random() * 15 + 10 + 'px';
-            bubble.style.width = size;
-            bubble.style.height = size;
-            bubble.style.left
+        // Hiệu ứng bong bóng bay lên ngẫu nhiên
+        function createBubble() {
+            const b = document.createElement('div');
+            b
