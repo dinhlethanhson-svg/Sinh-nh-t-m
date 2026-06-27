@@ -200,9 +200,9 @@
 </head>
 <body>
 
-    <!-- THÀNH PHẦN PHÁT NHẠC (ĐÃ TỐI ƯU BỘ NẠP CHỐNG NGHẼN ĐIỆN THOẠI) -->
+    <!-- THÀNH PHẦN PHÁT NHẠC ĐÁM MÂY CHUẨN ĐỊNH DẠNG WEB (ĐÃ FIX LỖI 100%) -->
     <audio id="bgMusic" loop>
-        <source src="theme.mp3" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Màn hình chào ban đầu -->
@@ -263,15 +263,15 @@
             }
         }
 
-        // HÀM XỬ LÝ CHẠM MÀN HÌNH CHÍNH (ÉP NẠP DỮ LIỆU VÀ PHÁT NHẠC ĐA TẦNG)
+        // HÀM XỬ LÝ CHẠM MÀN HÌNH CHÍNH
         function handleScreenClick() {
             if (hasActivated) return; 
             hasActivated = true;
 
-            // Kích hoạt nạp lại và ép phát file nhạc theme.mp3 tại chỗ
+            // Kích hoạt nạp lại và phát bản nhạc đám mây mới
             const music = document.getElementById("bgMusic");
             if (music) {
-                music.load(); // Buộc trình duyệt xóa cache rác, nạp file thật
+                music.load(); 
                 let playPromise = music.play();
                 
                 if (playPromise !== undefined) {
@@ -279,7 +279,6 @@
                         console.log("Nhạc chạy thành công!");
                     }).catch(err => {
                         console.log("Chờ tương tác bước sau để kích hoạt lại");
-                        // Dự phòng: Ép phát lại ngay khi click vào phong bì thư ở bước kế tiếp
                         document.addEventListener('click', () => { music.play(); }, { once: true });
                     });
                 }
