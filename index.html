@@ -6,7 +6,7 @@
     <title>Happy Birthday Mỹ Ngọc ❤️</title>
     <!-- Chèn font chữ dễ thương và hiện đại -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
-    
+
     <style>
         * {
             box-sizing: border-box;
@@ -23,7 +23,7 @@
             align-items: center;
             overflow: hidden;
             position: relative;
-            cursor: pointer; 
+            cursor: pointer;
             -webkit-tap-highlight-color: transparent; /* Tối ưu cho điện thoại khi chạm không bị đổi màu nền */
         }
 
@@ -92,7 +92,7 @@
             max-width: 440px;
             box-shadow: 0 15px 35px rgba(255, 77, 109, 0.15);
             z-index: 10;
-            display: none; 
+            display: none;
             opacity: 0;
             transform: scale(0.8);
             transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -169,7 +169,7 @@
             display: none;
             text-align: left;
             margin-top: 15px;
-            max-height: 320px; 
+            max-height: 320px;
             overflow-y: auto; /* Vuốt cuộn trên điện thoại cực mượt */
             animation: fadeInUp 0.6s forwards;
         }
@@ -200,9 +200,9 @@
 </head>
 <body>
 
-    <!-- THÀNH PHẦN PHÁT NHẠC ĐÁM MÂY CHUẨN ĐỊNH DẠNG WEB (ĐÃ FIX LỖI 100%) -->
+    <!-- File nhạc nền theme.mp3 phải nằm CÙNG thư mục với index.html này -->
     <audio id="bgMusic" loop>
-        <source src="https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3" type="audio/mpeg">
+        <source src="theme.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Màn hình chào ban đầu -->
@@ -215,7 +215,7 @@
     <!-- Giao diện thiệp kính mờ chính -->
     <div class="glass-card" id="mainCard">
         <h1 id="titleHead">Chúc Mừng Sinh Nhật! 🎂</h1>
-        
+
         <div class="envelope-wrapper" id="envelopeWrapper">
             <div class="envelope" id="envelope">
                 <div class="flap"></div>
@@ -250,8 +250,8 @@
         const wishText = `Lại là bạn trai của em đây!!! Mỹ Ngọc ơi, dạo này em ôn thi nhiều và có đôi lúc stress với kì thi nữa nên là anh mong em sẽ thật sự biết được năng lực của mình và tiếp tục cố gắng nhee. Anh tin em nếu ôn tập và học chăm chỉ cũng như quan sát đối thủ xung quanh thì em sẽ đạt được những gì em mong muốn, với nhớ là phải giữ sức khỏe nè bé, ăn uống ngủ nghỉ đầy đủ, bị đau răng thì hạn chế đồ ngọt, uống nước đá. Với lại nếu có thời gian thì em hãy tập thể dục để có dopamine và tốt cho sức khỏe nè. Vậy là em đã 17 tuổi rồi, nhanh thiệt :))), anh chúc em sẽ vẫn xinh đẹp và cute như vậy, tuổi mới đạt được nhiều mục tiêu đề ra và sẽ vào được trường đại học mình mong ước. Anh yêu Mỹ Ngọc của anh <3\n\n`;
 
         let index = 0;
-        const speed = 50; 
-        let hasActivated = false; 
+        const speed = 50;
+        let hasActivated = false;
 
         function typeWriter() {
             if (index < wishText.length) {
@@ -265,20 +265,19 @@
 
         // HÀM XỬ LÝ CHẠM MÀN HÌNH CHÍNH
         function handleScreenClick() {
-            if (hasActivated) return; 
+            if (hasActivated) return;
             hasActivated = true;
 
-            // Kích hoạt nạp lại và phát bản nhạc đám mây mới
             const music = document.getElementById("bgMusic");
             if (music) {
-                music.load(); 
+                music.load();
                 let playPromise = music.play();
-                
+
                 if (playPromise !== undefined) {
                     playPromise.then(_ => {
                         console.log("Nhạc chạy thành công!");
                     }).catch(err => {
-                        console.log("Chờ tương tác bước sau để kích hoạt lại");
+                        console.log("Trình duyệt tạm găm luồng, kích hoạt lại ở tương tác sau");
                         document.addEventListener('click', () => { music.play(); }, { once: true });
                     });
                 }
@@ -286,10 +285,10 @@
 
             // 2. Làm mờ và ẩn màn hình chào đón ban đầu
             document.getElementById("welcomeScreen").style.opacity = "0";
-            
+
             setTimeout(() => {
                 document.getElementById("welcomeScreen").style.display = "none";
-                
+
                 // 3. Hiển thị tấm thiệp Glassmorphism
                 const mainCard = document.getElementById("mainCard");
                 mainCard.style.display = "block";
@@ -299,7 +298,7 @@
                 setTimeout(() => {
                     document.getElementById("envelope").classList.add("open");
 
-                    // Nhồi thêm lệnh phát nhạc một lần nữa khi thư mở để chắc chắn âm thanh cất lời
+                    // Ép phát nhạc lại lần cuối khi mở thư để phá băng bảo mật điện thoại
                     try { music.play(); } catch(e) {}
 
                     // 5. Phong bì ẩn đi, tiêu đề đổi sang lãng mạn và chạy chữ
@@ -307,7 +306,7 @@
                         document.getElementById("envelopeWrapper").style.display = "none";
                         document.getElementById("titleHead").innerText = "Lời chúc từ Sơn ❤️";
                         document.getElementById("letterCard").style.display = "block";
-                        
+
                         // Bắt đầu hiệu ứng gõ chữ
                         typeWriter();
                     }, 1000);
